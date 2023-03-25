@@ -1,0 +1,117 @@
+{
+	"deploy": {
+		"VM:-": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"main:1": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"ropsten:3": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"rinkeby:4": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"kovan:42": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"goerli:5": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"Custom": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		}
+	},
+	"data": {
+		"bytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"deployedBytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"immutableReferences": {},
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"gasEstimates": null,
+		"methodIdentifiers": {
+			"getPairInfo(address,address)": "400f7a1e",
+			"pairLength()": "fcc9136c"
+		}
+	},
+	"abi": [
+		{
+			"inputs": [
+				{
+					"internalType": "address",
+					"name": "_tokenA",
+					"type": "address"
+				},
+				{
+					"internalType": "address",
+					"name": "_tokenB",
+					"type": "address"
+				}
+			],
+			"name": "getPairInfo",
+			"outputs": [
+				{
+					"components": [
+						{
+							"internalType": "address",
+							"name": "swapContract",
+							"type": "address"
+						},
+						{
+							"internalType": "address",
+							"name": "token0",
+							"type": "address"
+						},
+						{
+							"internalType": "address",
+							"name": "token1",
+							"type": "address"
+						},
+						{
+							"internalType": "address",
+							"name": "LPContract",
+							"type": "address"
+						}
+					],
+					"internalType": "struct IStableSwapFactory.StableSwapPairInfo",
+					"name": "info",
+					"type": "tuple"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "pairLength",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		}
+	]
+}

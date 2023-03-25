@@ -1,0 +1,105 @@
+{
+	"compiler": {
+		"version": "0.8.18+commit.87f61d96"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_tokenA",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_tokenB",
+						"type": "address"
+					}
+				],
+				"name": "getPairInfo",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "swapContract",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "token0",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "token1",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "LPContract",
+								"type": "address"
+							}
+						],
+						"internalType": "struct IStableSwapFactory.StableSwapPairInfo",
+						"name": "info",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "pairLength",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"tutorialtoken-box-master/KNS/PANCAKE/PancakeSwapSmartRouter.sol": "IStableSwapFactory"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 10
+		},
+		"remappings": []
+	},
+	"sources": {
+		"tutorialtoken-box-master/KNS/PANCAKE/PancakeSwapSmartRouter.sol": {
+			"keccak256": "0x50b194af53215125d472a7fe2a10ea193c61dc4ae89a7ba47738a828b367ade2",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://d2e677a7ffbaf9b30f868be9b30869cd9886674af33632b4ce61d072f2a1b29a",
+				"dweb:/ipfs/QmS7d6Tv6pNcTfgFP622EW7W2tRhVHxgcaR8JJrtYADkDy"
+			]
+		}
+	},
+	"version": 1
+}
