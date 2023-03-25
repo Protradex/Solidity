@@ -1,0 +1,160 @@
+{
+	"compiler": {
+		"version": "0.8.13+commit.abaa5c0e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "reclaimEther",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "reclaimToken",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
+				"reclaimEther()": {
+					"details": "Transfer all Ether held by the contract to the owner."
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"KNS/super/HasNoEther.sol": "HasNoEther"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"KNS/interface/IBEP20.sol": {
+			"keccak256": "0x676d2985c77e38e8222282191f0e4bcbfab2fbfc6292a67d01ba28a52b68f6eb",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a086760176642fb98bf99685d56c2c51e114d989523ef34bc7d3fea5207c4ee9",
+				"dweb:/ipfs/QmYCXZHXQdX4ZTKeyjXfMSBrNrqrU6cXcEdPYqKUVe8S3c"
+			]
+		},
+		"KNS/super/Context.sol": {
+			"keccak256": "0xb404829888978c2da845daa1eda5bfd9d109ff6d5dcdc29348c2109ae0d34f3d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://203f5931ddd28501c18ab5b8665014b2f3126f3453cf93227e882fba4f614253",
+				"dweb:/ipfs/QmXw55pgAKQTPBsQaPUYC4FSUrhZXzMpdMtAcRg61CAbuM"
+			]
+		},
+		"KNS/super/HasNoEther.sol": {
+			"keccak256": "0x6f61b77699ffe14cfdc89709cd7178f51078ca5cb2b899bda690e41a353de0d5",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c2c688af759375a740d6237638bd9f0f58e91f8acf0015e975b5322e3ed0bf5d",
+				"dweb:/ipfs/QmWB2tPPyRonT1GS5DmByf2zVJpnTaDnQgAAdbjHDv2wKU"
+			]
+		},
+		"KNS/super/Ownable.sol": {
+			"keccak256": "0xef09051d7e9a08ca438d4242e46b0d82db103c2ba239660c4339e8d5604b47ea",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2494932786a9c18b5629091596420b6df3c4526f3d6af8637a050c15f37344e4",
+				"dweb:/ipfs/QmZbiG3frUtyH5BNrAv5HfUBTmLhNuzduMcsLaEbmBGjxr"
+			]
+		}
+	},
+	"version": 1
+}

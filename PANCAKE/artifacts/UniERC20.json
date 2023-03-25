@@ -1,0 +1,101 @@
+{
+	"deploy": {
+		"VM:-": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"main:1": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"ropsten:3": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"rinkeby:4": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"kovan:42": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"goerli:5": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"Custom": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		}
+	},
+	"data": {
+		"bytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"linkReferences": {},
+			"object": "60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212206ccf89431cb68a21b3dc3548d729ae4e892f16e6f1355dd513efb571a663041264736f6c63430008120033",
+			"opcodes": "PUSH1 0x56 PUSH1 0x37 PUSH1 0xB DUP3 DUP3 DUP3 CODECOPY DUP1 MLOAD PUSH1 0x0 BYTE PUSH1 0x73 EQ PUSH1 0x2A JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x0 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST ADDRESS PUSH1 0x0 MSTORE PUSH1 0x73 DUP2 MSTORE8 DUP3 DUP2 RETURN INVALID PUSH20 0x0 ADDRESS EQ PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 PUSH13 0xCF89431CB68A21B3DC3548D729 0xAE 0x4E DUP10 0x2F AND 0xE6 CALL CALLDATALOAD 0x5D 0xD5 SGT 0xEF 0xB5 PUSH18 0xA663041264736F6C63430008120033000000 ",
+			"sourceMap": "19202:5687:0:-:0;;;;;;;;;;;;;;;-1:-1:-1;;;19202:5687:0;;;;;;;;;;;;;;;;;"
+		},
+		"deployedBytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"immutableReferences": {},
+			"linkReferences": {},
+			"object": "73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212206ccf89431cb68a21b3dc3548d729ae4e892f16e6f1355dd513efb571a663041264736f6c63430008120033",
+			"opcodes": "PUSH20 0x0 ADDRESS EQ PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 PUSH13 0xCF89431CB68A21B3DC3548D729 0xAE 0x4E DUP10 0x2F AND 0xE6 CALL CALLDATALOAD 0x5D 0xD5 SGT 0xEF 0xB5 PUSH18 0xA663041264736F6C63430008120033000000 ",
+			"sourceMap": "19202:5687:0:-:0;;;;;;;;"
+		},
+		"gasEstimates": {
+			"creation": {
+				"codeDepositCost": "17200",
+				"executionCost": "103",
+				"totalCost": "17303"
+			},
+			"internal": {
+				"_uniDecode(contract IERC20,bytes4,bytes4)": "infinite",
+				"isETH(contract IERC20)": "infinite",
+				"uniApprove(contract IERC20,address,uint256)": "infinite",
+				"uniBalanceOf(contract IERC20,address)": "infinite",
+				"uniName(contract IERC20)": "infinite",
+				"uniSymbol(contract IERC20)": "infinite",
+				"uniTransfer(contract IERC20,address payable,uint256)": "infinite",
+				"uniTransferFrom(contract IERC20,address payable,address,uint256)": "infinite"
+			}
+		},
+		"methodIdentifiers": {}
+	},
+	"abi": [
+		{
+			"inputs": [],
+			"name": "ApproveCalledOnETH",
+			"type": "error"
+		},
+		{
+			"inputs": [],
+			"name": "ETHTransferFailed",
+			"type": "error"
+		},
+		{
+			"inputs": [],
+			"name": "FromIsNotSender",
+			"type": "error"
+		},
+		{
+			"inputs": [],
+			"name": "InsufficientBalance",
+			"type": "error"
+		},
+		{
+			"inputs": [],
+			"name": "NotEnoughValue",
+			"type": "error"
+		},
+		{
+			"inputs": [],
+			"name": "ToIsNotThis",
+			"type": "error"
+		}
+	]
+}

@@ -1,0 +1,68 @@
+{
+	"compiler": {
+		"version": "0.5.16+commit.9c3226ce"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount0",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount1",
+						"type": "uint256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "pancakeCall",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"tutorialtoken-box-master/KNS/PANCAKE/PancakeFactory.sol": "IPancakeCallee"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"optimizer": {
+			"enabled": true,
+			"runs": 10
+		},
+		"remappings": []
+	},
+	"sources": {
+		"tutorialtoken-box-master/KNS/PANCAKE/PancakeFactory.sol": {
+			"keccak256": "0xea5ba41f284bfa176e78b10aadb175afc7a7135fd0707a2cc8a5d0443ce7188e",
+			"urls": [
+				"bzz-raw://34c4bcca97011d452ab58db9c14e3d4a8e28bb4cb0229349d4b4820828fb2b74",
+				"dweb:/ipfs/QmNqHnJw7dpmimBr558oMXsQ5uRDQD9KpUQa8qZssbBx81"
+			]
+		}
+	},
+	"version": 1
+}

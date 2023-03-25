@@ -1,0 +1,183 @@
+{
+	"deploy": {
+		"VM:-": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"main:1": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"ropsten:3": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"rinkeby:4": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"kovan:42": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"goerli:5": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"Custom": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		}
+	},
+	"data": {
+		"bytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"deployedBytecode": {
+			"functionDebugData": {},
+			"generatedSources": [],
+			"immutableReferences": {},
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"gasEstimates": null,
+		"methodIdentifiers": {
+			"A()": "f446c1d0",
+			"balances(uint256)": "4903b0d1",
+			"coins(uint256)": "c6610657",
+			"exchange(uint256,uint256,uint256,uint256)": "5b41b908",
+			"fee()": "ddca3f43",
+			"get_dy(uint256,uint256,uint256)": "556d6e9f"
+		}
+	},
+	"abi": [
+		{
+			"inputs": [],
+			"name": "A",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "i",
+					"type": "uint256"
+				}
+			],
+			"name": "balances",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "i",
+					"type": "uint256"
+				}
+			],
+			"name": "coins",
+			"outputs": [
+				{
+					"internalType": "address",
+					"name": "",
+					"type": "address"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "i",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "j",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "dx",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "minDy",
+					"type": "uint256"
+				}
+			],
+			"name": "exchange",
+			"outputs": [],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "fee",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "i",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "j",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "dx",
+					"type": "uint256"
+				}
+			],
+			"name": "get_dy",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "dy",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		}
+	]
+}
