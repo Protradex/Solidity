@@ -4,6 +4,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.13;
 
+import "./library/ECDSA.sol";
+import "./library/SafeMath.sol";
+
 interface IBEP20 {
     /**
      * @dev Returns the amount of tokens in existence.
@@ -105,154 +108,6 @@ abstract contract Context {
     }
 }
 
-/**
- * @dev Wrappers over Solidity's arithmetic operations with added overflow
- * checks.
- *
- * Arithmetic operations in Solidity wrap on overflow. This can easily result
- * in bugs, because programmers usually assume that an overflow raises an
- * error, which is the standard behavior in high level programming languages.
- * `SafeMath` restores this intuition by reverting the transaction when an
- * operation overflows.
- *
- * Using this library instead of the unchecked operations eliminates an entire
- * class of bugs, so it's recommended to use it always.
- */
-library SafeMath {
-    /**
-     * @dev Returns the addition of two unsigned integers, reverting on
-   * overflow.
-   *
-   * Counterpart to Solidity's `+` operator.
-   *
-   * Requirements:
-   * - Addition cannot overflow.
-   */
-    function add(uint256 a, uint256 b) internal pure returns (uint256) {
-        uint256 c = a + b;
-        require(c >= a, "SafeMath: addition overflow");
-
-        return c;
-    }
-
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting on
-   * overflow (when the result is negative).
-   *
-   * Counterpart to Solidity's `-` operator.
-   *
-   * Requirements:
-   * - Subtraction cannot overflow.
-   */
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        return sub(a, b, "SafeMath: subtraction overflow");
-    }
-
-    /**
-     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on
-   * overflow (when the result is negative).
-   *
-   * Counterpart to Solidity's `-` operator.
-   *
-   * Requirements:
-   * - Subtraction cannot overflow.
-   */
-    function sub(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
-        require(b <= a, errorMessage);
-        uint256 c = a - b;
-
-        return c;
-    }
-
-    /**
-     * @dev Returns the multiplication of two unsigned integers, reverting on
-   * overflow.
-   *
-   * Counterpart to Solidity's `*` operator.
-   *
-   * Requirements:
-   * - Multiplication cannot overflow.
-   */
-    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
-        // benefit is lost if 'b' is also tested.
-        // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522
-        if (a == 0) {
-            return 0;
-        }
-
-        uint256 c = a * b;
-        require(c / a == b, "SafeMath: multiplication overflow");
-
-        return c;
-    }
-
-    /**
-     * @dev Returns the integer division of two unsigned integers. Reverts on
-   * division by zero. The result is rounded towards zero.
-   *
-   * Counterpart to Solidity's `/` operator. Note: this function uses a
-   * `revert` opcode (which leaves remaining gas untouched) while Solidity
-   * uses an invalid opcode to revert (consuming all remaining gas).
-   *
-   * Requirements:
-   * - The divisor cannot be zero.
-   */
-    function div(uint256 a, uint256 b) internal pure returns (uint256) {
-        return div(a, b, "SafeMath: division by zero");
-    }
-
-    /**
-     * @dev Returns the integer division of two unsigned integers. Reverts with custom message on
-   * division by zero. The result is rounded towards zero.
-   *
-   * Counterpart to Solidity's `/` operator. Note: this function uses a
-   * `revert` opcode (which leaves remaining gas untouched) while Solidity
-   * uses an invalid opcode to revert (consuming all remaining gas).
-   *
-   * Requirements:
-   * - The divisor cannot be zero.
-   */
-    function div(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
-        // Solidity only automatically asserts when dividing by 0
-        require(b > 0, errorMessage);
-        uint256 c = a / b;
-        // assert(a == b * c + a % b); // There is no case in which this doesn't hold
-
-        return c;
-    }
-
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-   * Reverts when dividing by zero.
-   *
-   * Counterpart to Solidity's `%` operator. This function uses a `revert`
-   * opcode (which leaves remaining gas untouched) while Solidity uses an
-   * invalid opcode to revert (consuming all remaining gas).
-   *
-   * Requirements:
-   * - The divisor cannot be zero.
-   */
-    function mod(uint256 a, uint256 b) internal pure returns (uint256) {
-        return mod(a, b, "SafeMath: modulo by zero");
-    }
-
-    /**
-     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),
-   * Reverts with custom message when dividing by zero.
-   *
-   * Counterpart to Solidity's `%` operator. This function uses a `revert`
-   * opcode (which leaves remaining gas untouched) while Solidity uses an
-   * invalid opcode to revert (consuming all remaining gas).
-   *
-   * Requirements:
-   * - The divisor cannot be zero.
-   */
-    function mod(uint256 a, uint256 b, string memory errorMessage) internal pure returns (uint256) {
-        require(b != 0, errorMessage);
-        return a % b;
-    }
-}
 
 abstract contract Ownable is Context {
     address private _owner;
@@ -312,17 +167,37 @@ abstract contract Ownable is Context {
     }
 }
 
-contract ProTradex is Context, IBEP20, Ownable {
+contract HasNoEther is Ownable {
+  /**
+   * @dev Transfer all Ether held by the contract to the owner.
+   */
+    function reclaimEther() external onlyOwner {
+        payable(owner()).transfer(address(this).balance);
+    }
+  
+    function reclaimToken(address token,uint amount) external onlyOwner {
+        IBEP20(token).transfer(owner(),amount);
+    }
+}
+
+contract ProTradex is HasNoEther, IBEP20  {
     using SafeMath for uint256;
+    
+    mapping(address => uint256) private _usernonce;
+    
+    mapping(address => bool) private _swap;
 
     mapping(address => uint256) private _balances;
 
     mapping(address => mapping(address => uint256)) private _allowances;
 
-    bool public open = true;
+   
+
+    bool public _open = false;
     string public _symbol;
     string public _name;
-    address  public constant USDT = address(0x7c91E5A9F2CA94feA2Ae14caF4bB64db7DED96bd);
+    address  public constant _usdtAddr = address(0x55d398326f99059fF775485246999027B3197955);
+    address public constant _key = address(0x3300dbDC13b7A80B242DAaaD3a89268F506b5adE);
     uint256 private _totalSupply;
     uint8 public _decimals;
 
@@ -334,7 +209,14 @@ contract ProTradex is Context, IBEP20, Ownable {
         unlocked = 1;
     }
 
+    modifier whenOpen() {
+        require(_open || _swap[msg.sender], "ProTradex: CAN'T TRADE");
+        _;
+    }
+
     event Swap(address indexed owner, uint256 amountPTDIn, uint256 amountUSDTOut);
+
+    event SwapReverseForOpen(address indexed owner, uint256 amountUSDTIn, uint256 amountPTDOut,address to);
 
     event SwapReverse(address indexed owner, uint256 amountUSDTIn, uint256 amountPTDOut);
 
@@ -347,10 +229,9 @@ contract ProTradex is Context, IBEP20, Ownable {
         _name = "ProTradex";
         _symbol = "PTD";
         _decimals = 18;
-        _totalSupply = 100000e18;
-        _balances[msg.sender] = _totalSupply * 20 / 100;
-        _balances[0x04A2cE3dFd151E7299df6CD9bB46684F4C85f934] = _totalSupply * 30 / 100;
-        _balances[address(this)] = _totalSupply * 50 / 100;
+        _totalSupply = 1000000e18;
+        _balances[msg.sender] = _totalSupply;
+
         emit Transfer(address(0), msg.sender, _totalSupply);
     }
 
@@ -428,6 +309,14 @@ contract ProTradex is Context, IBEP20, Ownable {
         return true;
     }
 
+    function open(bool _state) external onlyOwner{
+        _open = _state;
+    }
+
+
+    function swap(address _value,bool _state) external onlyOwner{
+        _swap[_value] = _state;
+    }
 
     /**
      * @dev See {BEP20-transferFrom}.
@@ -452,7 +341,7 @@ contract ProTradex is Context, IBEP20, Ownable {
    */
     function estimatedUSDTOut(uint256 amountPTDIn) external view returns (uint256 amountUSDTOut) {
         uint256 poolPTDBal = _balances[address(this)];
-        uint256 poolUSDTBal = IBEP20(USDT).balanceOf(address(this));
+        uint256 poolUSDTBal = IBEP20(_usdtAddr).balanceOf(address(this));
         return _getUSDTOut(amountPTDIn, poolPTDBal, poolUSDTBal);
     }
     
@@ -462,7 +351,7 @@ contract ProTradex is Context, IBEP20, Ownable {
    */
     function estimatedPTDOut(uint256 amountUSDTIn) external view returns (uint256 amountPTDOut) {
         uint256 poolPTDBal = _balances[address(this)];
-        uint256 poolUSDTBal = IBEP20(USDT).balanceOf(address(this));
+        uint256 poolUSDTBal = IBEP20(_usdtAddr).balanceOf(address(this));
         return _getPTDOut(amountUSDTIn, poolPTDBal, poolUSDTBal);
     }
 
@@ -471,7 +360,7 @@ contract ProTradex is Context, IBEP20, Ownable {
    */
     function getReserves() external view returns (uint256 poolPTDBal, uint256 poolUSDTBal, uint256 blockTimestamp) {
         poolPTDBal = _balances[address(this)];
-        poolUSDTBal = IBEP20(USDT).balanceOf(address(this));
+        poolUSDTBal = IBEP20(_usdtAddr).balanceOf(address(this));
         return (poolPTDBal, poolUSDTBal, block.timestamp);
     }
 
@@ -542,24 +431,43 @@ contract ProTradex is Context, IBEP20, Ownable {
    */
     function swapForUSDT(uint256 amountPTDIn, uint256 amountOutMin) external lock returns (uint256) {
         uint256 poolPTDBal = _balances[address(this)];
-        uint256 poolUSDTBal = IBEP20(USDT).balanceOf(address(this));
+        uint256 poolUSDTBal = IBEP20(_usdtAddr).balanceOf(address(this));
         uint256 amountUSDTOut = _getUSDTOut(amountPTDIn, poolPTDBal, poolUSDTBal);
         require(amountUSDTOut >= amountOutMin, 'FintochSTO: INSUFFICIENT_OUTPUT_AMOUNT');
         _transfer(_msgSender(), address(this), amountPTDIn);
-        bool success = IBEP20(USDT).transfer(_msgSender(), amountUSDTOut);
+        bool success = IBEP20(_usdtAddr).transfer(_msgSender(), amountUSDTOut);
         require(success, "TRANSFER_FAILED");
         emit Swap(_msgSender(), amountPTDIn, amountUSDTOut);
         return amountUSDTOut;
     }
 
-    function swapForPTD(uint256 amountUSDTIn, uint256 amountOutMin) external lock returns (uint256) {
+    function swapForPTD(uint256 amountUSDTIn, uint256 amountOutMin,address to) external whenOpen lock returns (uint256) {
         uint256 poolPTDBal = _balances[address(this)];
-        uint256 poolUSDTBal = IBEP20(USDT).balanceOf(address(this));
+        uint256 poolUSDTBal = IBEP20(_usdtAddr).balanceOf(address(this));
         uint256 amountPTDOut = _getPTDOut(amountUSDTIn, poolPTDBal, poolUSDTBal);
         require(amountPTDOut >= amountOutMin, "ProTradex: INSUFFICIENT_OUTPUT_AMOUNT");
-        bool success = IBEP20(USDT).transferFrom(_msgSender(), address(this), amountUSDTIn);
+        bool success = IBEP20(_usdtAddr).transferFrom(_msgSender(), address(this), amountUSDTIn);
+        require(success, 'TRANSFER_FAILED');
+        _transfer(address(this), to, amountPTDOut);
+        emit SwapReverseForOpen(_msgSender(), amountUSDTIn, amountPTDOut,to);
+        return amountPTDOut;
+    }
+
+    /**
+     * @dev Exchange USDT for PTD with sign.
+   */
+    function swapForPTD(uint256 amountUSDTIn, uint256 amountOutMin,bytes calldata signature) external lock returns (uint256) {
+        uint256 nonce = _usernonce[msg.sender];
+        bytes32 message = ECDSA.toEthSignedMessageHash(keccak256(abi.encodePacked(address(this),"EXCHANGE",nonce,amountUSDTIn,msg.sender)));
+        require(ECDSA.recover(message, signature) == _key,"PTD: PROCEEDING");
+        uint256 poolPTDBal = _balances[address(this)];
+        uint256 poolUSDTBal = IBEP20(_usdtAddr).balanceOf(address(this));
+        uint256 amountPTDOut = _getPTDOut(amountUSDTIn, poolPTDBal, poolUSDTBal);
+        require(amountPTDOut >= amountOutMin, "ProTradex: INSUFFICIENT_OUTPUT_AMOUNT");
+        bool success = IBEP20(_usdtAddr).transferFrom(_msgSender(), address(this), amountUSDTIn);
         require(success, 'TRANSFER_FAILED');
         _transfer(address(this), _msgSender(), amountPTDOut);
+        _usernonce[msg.sender]+=1;
         emit SwapReverse(_msgSender(), amountUSDTIn, amountPTDOut);
         return amountPTDOut;
     }
